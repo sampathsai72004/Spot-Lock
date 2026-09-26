@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    .report { max-width: 620px; margin: auto; padding: 1rem; background: #ffffff; border-radius: 8px; border: 1px solid #e0e0e0; }
+    h2 { color: #3366cc; }
+    table { width: 100%; margin-top: 16px; border-collapse: collapse; }
+    th, td { padding: 8px; border-bottom: 1px solid #eee; }
+    .footer { margin-top: 32px; color: #888; font-size: 0.95em; }
+  </style>
+</head>
+<body>
+  <div class="report">
+    <h2>Monthly Parking Activity Report: {{ report_month }}</h2>
+    <p>Hello {{ user.email }},</p>
+
+    <table>
+      <tr>
+        <th align="left">Total Bookings</th>
+        <td>{{ total_booked }}</td>
+      </tr>
+      <tr>
+        <th align="left">Most Used Lot</th>
+        <td>{{ most_used_lot }}</td>
+      </tr>
+      <tr>
+        <th align="left">Total Amount Spent</th>
+        <td>₹{{ '%.2f'|format(amount_spent) }}</td>
+      </tr>
+    </table>
+
+    {% if reservations %}
+      <h4 style="margin-top: 1.5em;">Your Reservations This Month</h4>
+
+      <table>
+        <tr>
+          <th>Date</th>
+          <th>Lot</th>
+          <th>Spot</th>
+          <th>Cost</th>
+        </tr>
+
+        {% for r in reservations %}
+          <tr>
+            
+            <td>{{ r.parking_timestamp.strftime('%Y-%m-%d') }}</td>
+
+            <td>{{ r.spot.lot.prime_location_name if r.spot and r.spot.lot else '' }}</td>
+
+            <td>{{ r.spot.spot_number if r.spot else '' }}</td>
+
+            <td>₹{{ '%.2f'|format(r.parking_cost or 0) }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    {% endif %}
+
+    <div class="footer">
+      <p>Thank you for using SpotLock!</p>
+    </div>
+  </div>
+</body>
+</html>

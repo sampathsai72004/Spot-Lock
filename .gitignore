@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment variables / secrets
+.env
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Node
+node_modules/
+
+# Build files
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Runtime / generated files
+celerybeat-schedule
+*.rdb
